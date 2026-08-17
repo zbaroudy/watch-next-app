@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Top 10 Streaming Lists in Canada - WatchNext</title>
+
+    <link rel="stylesheet" href="/static/style.css?v=4">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="site-title">
+            <h1>WatchNext</h1>
+            <p>Find your next watch and request them.</p>
+        </div>
+
+        <nav class="main-navigation">
+            <a href="/" class="nav-link active">Top 10</a>
+            <a href="/categories" class="nav-link">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <!-- =========================================================
+         FLIXPATROL FILTERS
+    ========================================================== -->
+
+    <nav class="filters">
+
+        <div class="filter-group">
+
+            <span class="filter-label">
+                Services
+            </span>
+
+            <button
+                class="filter-button active"
+                data-provider="all"
+            >
+                All
+            </button>
+
+            {% for provider in providers %}
+
+            <button
+                class="filter-button"
+                data-provider="{{ provider.value }}"
+            >
+                {{ provider.display }}
+            </button>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="filter-group">
+
+            <span class="filter-label">
+                Type
+            </span>
+
+            <button
+                class="type-button active"
+                data-type="all"
+            >
+                All
+            </button>
+
+            <button
+                class="type-button"
+                data-type="movie"
+            >
+                Movies
+            </button>
+
+            <button
+                class="type-button"
+                data-type="tv"
+            >
+                TV Shows
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+         FLIXPATROL LISTS
+    ========================================================== -->
+
+    <div id="lists-container">
+
+        {% for list in lists %}
+
+        <section
+            class="ranking-section"
+            data-provider="{{ list.provider }}"
+            data-type="{{ list.media_type }}"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Top 10
+                        {{ list.provider_display }}
+
+                        {% if list.media_type == "movie" %}
+                            Movies
+                        {% elif list.media_type in ["show", "tv"] %}
+                            TV Shows
+                        {% else %}
+                            Overall
+                        {% endif %}
+
+                        in Canada
+                    </h2>
+
+                    <div class="section-subtitle">
+
+                        {% if list.media_type == "movie" %}
+                            Movies
+                        {% elif list.media_type in ["show", "tv"] %}
+                            TV Shows
+                        {% else %}
+                            Mixed movies & TV
+                        {% endif %}
+
+                        · {{ list.count }} titles
+
+                    </div>
+
+                </div>
+
+
+                <div class="updated">
+
+                    Updated {{ list.updated_display }}
+
+                </div>
+
+            </div>
+
+
+            <div class="cards">
+
+                {% for item in list["items"] %}
+
+                {% set resolved_type = item._resolved_media_type %}
+
+
+                {% if item.tmdb_id and resolved_type %}
+
+                <a href="/title/{{ resolved_type }}/{{ item.tmdb_id }}?from=top10" class="card">
+
+                {% else %}
+
+                <div class="card">
+
+                {% endif %}
+
+
+                    <div class="poster-wrapper">
+
+                        {% if item._poster_url %}
+
+                        <img
+                            src="{{ item._poster_url }}"
+                            alt="{{ item._title }}"
+                            class="poster"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <div class="poster-placeholder">
+                            No Artwork
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="rank">
+                            #{{ item.rank }}
+                        </div>
+
+
+                        {% if item._rating %}
+
+                        <div class="rating">
+                            ★ {{ "%.1f"|format(item._rating) }}
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+
+                            {{ item._title }}
+
+                            {% if item._year %}
+
+                            <span class="year">
+                                ({{ item._year }})
+                            </span>
+
+                            {% endif %}
+
+                        </h3>
+
+
+                        {% if list.media_type == "overall" %}
+
+                        <div class="genres">
+
+                            <span class="genre">
+
+                                {{
+                                    "Movie"
+                                    if resolved_type == "movie"
+                                    else "TV Show"
+                                    if resolved_type == "tv"
+                                    else "Unmatched"
+                                }}
+
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if item._genres %}
+
+                        <div class="genres">
+
+                            {% for genre in item._genres[:2] %}
+
+                            <span class="genre">
+                                {{ genre }}
+                            </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% if item._overview %}
+
+                        <p class="overview">
+                            {{ item._overview }}
+                        </p>
+
+                        {% endif %}
+
+
+                        {% if item.tmdb_id %}
+
+                        <div class="tmdb tmdb-label">
+                            TMDB {{ item.tmdb_id }}
+                        </div>
+
+                        {% else %}
+
+                        <div class="tmdb tmdb-label">
+                            TMDB match pending
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                {% if item.tmdb_id and resolved_type %}
+
+                </a>
+
+                {% else %}
+
+                </div>
+
+                {% endif %}
+
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        {% endfor %}
+
+
+        <div
+            id="no-results"
+            class="no-results"
+            style="display:none;"
+        >
+            No lists match your filters.
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   FLIXPATROL FILTERS
+========================================================= */
+
+let selectedProvider = "all";
+let selectedType = "all";
+
+
+function updateFilters() {
+
+    const sections =
+        document.querySelectorAll(".ranking-section");
+
+    let visibleSections = 0;
+
+
+    sections.forEach(section => {
+
+        const provider =
+            section.dataset.provider;
+
+        const type =
+            section.dataset.type;
+
+
+        const providerMatches =
+            selectedProvider === "all"
+            || provider === selectedProvider;
+
+
+        const typeMatches =
+            selectedType === "all"
+            || type === selectedType;
+
+
+        if (
+            providerMatches
+            && typeMatches
+        ) {
+
+            section.style.display = "";
+
+            visibleSections++;
+
+        } else {
+
+            section.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "no-results"
+    ).style.display =
+        visibleSections === 0
+            ? "block"
+            : "none";
+}
+
+
+/* Provider filters */
+
+document
+    .querySelectorAll(".filter-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(".filter-button")
+                    .forEach(b =>
+                        b.classList.remove("active")
+                    );
+
+
+                button.classList.add("active");
+
+
+                selectedProvider =
+                    button.dataset.provider;
+
+
+                updateFilters();
+
+            }
+        );
+
+    });
+
+
+/* Type filters */
+
+document
+    .querySelectorAll(".type-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(".type-button")
+                    .forEach(b =>
+                        b.classList.remove("active")
+                    );
+
+
+                button.classList.add("active");
+
+
+                selectedType =
+                    button.dataset.type;
+
+
+                updateFilters();
+
+            }
+        );
+
+    });
+
+
+updateFilters();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+services:
+  watch-next-app:
+    container_name: watch-next-app
+    build: .
+    restart: unless-stopped
+
+    environment:
+      TZ: ${TZ:-America/Toronto}
+      TMDB_API_KEY: ${TMDB_API_KEY}
+      OMDB_API_KEY: ${OMDB_API_KEY:-}
+      FLARESOLVERR_URL: ${FLARESOLVERR_URL:-http://192.168.50.140:8191/v1}
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./output:/app/output

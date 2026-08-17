@@ -1,0 +1,2200 @@
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: #0f0f0f;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0f0f0f;
+    color: #ffffff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.header {
+    background: #181818;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 42px 24px 36px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.header p {
+    margin: 12px 0 0;
+    color: #999;
+    font-size: 20px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #0f0f0f;
+    color: #ffffff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+
+.site-header {
+    background: #181818;
+    border-bottom: 1px solid #292929;
+    padding: 32px 24px;
+}
+
+.header-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.site-header p {
+    margin: 8px 0 0;
+    color: #a8a8a8;
+    font-size: 18px;
+}
+
+/* =========================================================
+   MAIN NAVIGATION
+========================================================= */
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.site-title {
+    min-width: 0;
+}
+
+.main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    color: inherit;
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .main-navigation {
+        width: 100%;
+    }
+
+    .nav-link {
+        flex: 1;
+    }
+
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 42px;
+    padding: 18px 20px;
+    background: #181818;
+    border: 1px solid #242424;
+    border-radius: 10px;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-label {
+    margin-right: 4px;
+    color: #888888;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.filter-button,
+.type-button {
+    appearance: none;
+    border: 1px solid #333333;
+    background: #222222;
+    color: #bbbbbb;
+    border-radius: 6px;
+    padding: 8px 13px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.filter-button:hover,
+.type-button:hover {
+    background: #2b2b2b;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+.filter-button.active,
+.type-button.active {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+}
+
+
+/* =========================================================
+   RANKING SECTION
+========================================================= */
+
+.ranking-section {
+    margin-bottom: 64px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.section-subtitle {
+    margin-top: 7px;
+    color: #858585;
+    font-size: 14px;
+}
+
+.updated {
+    color: #777777;
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.updated span {
+    color: #999999;
+}
+
+
+/* =========================================================
+   FLIXPATROL CARD GRID
+========================================================= */
+
+.cards {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+
+    /* Prevent the cards from wrapping */
+    flex-wrap: nowrap;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+}
+
+.cards::-webkit-scrollbar {
+    display: none;
+}
+
+.cards .card {
+    flex: 0 0 216px;
+    width: 216px;
+}
+
+
+/* =========================================================
+   FLIXPATROL CARD
+========================================================= */
+
+.card {
+    display: block;
+    min-width: 0;
+    background: #181818;
+    border: 1px solid #242424;
+    border-radius: 10px;
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.45);
+
+    border-color: #3a3a3a;
+}
+
+
+/* =========================================================
+   POSTER
+========================================================= */
+
+.poster-wrapper {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    background: #222222;
+    overflow: hidden;
+}
+
+.poster {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.card:hover .poster {
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   POSTER PLACEHOLDER
+========================================================= */
+
+.poster-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #242424,
+            #151515
+        );
+
+    color: #666666;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RANK
+========================================================= */
+
+.rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    padding: 6px 10px;
+
+    background: rgba(0, 0, 0, 0.78);
+    border-radius: 6px;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.rating {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    padding: 6px 9px;
+
+    background: rgba(0, 0, 0, 0.82);
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h3 {
+    margin: 0 0 9px;
+
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.year {
+    color: #888888;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   GENRES
+========================================================= */
+
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 9px;
+}
+
+.genre {
+    display: inline-block;
+
+    padding: 4px 7px;
+
+    background: #293844;
+    color: #b9c9d5;
+
+    border-radius: 4px;
+
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+.overview {
+    margin: 10px 0 0;
+
+    color: #b8b8b8;
+
+    font-size: 14px;
+    line-height: 1.45;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TMDB LABEL
+========================================================= */
+
+.tmdb-label {
+    display: none !important;
+}
+
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.no-results {
+    padding: 60px 20px;
+
+    color: #777777;
+
+    text-align: center;
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   TRAKT SECTION
+========================================================= */
+
+/*
+   The Trakt UI uses its own classes so that the API-driven
+   section can remain independent of the FlixPatrol templates.
+
+   These styles intentionally mirror the existing FlixPatrol
+   card design.
+*/
+
+.trakt-section {
+    margin-top: 80px;
+    margin-bottom: 64px;
+}
+
+.trakt-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.trakt-section-header h2 {
+    margin: 0;
+
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.trakt-section-subtitle {
+    margin-top: 7px;
+
+    color: #858585;
+
+    font-size: 14px;
+}
+
+.trakt-source {
+    color: #777777;
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TRAKT LIST CONTAINER
+========================================================= */
+
+.trakt-list {
+    margin-bottom: 56px;
+}
+
+.trakt-list:last-child {
+    margin-bottom: 0;
+}
+
+.trakt-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.trakt-list-header h3 {
+    margin: 0;
+
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.trakt-list-meta {
+    margin-top: 7px;
+
+    color: #858585;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TRAKT CARD GRID
+========================================================= */
+
+.trakt-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(190px, 1fr)
+        );
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+   TRAKT CARD
+========================================================= */
+
+.trakt-card {
+    display: block;
+
+    min-width: 0;
+
+    background: #181818;
+
+    border: 1px solid #242424;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.trakt-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.45);
+
+    border-color: #3a3a3a;
+}
+
+
+/* =========================================================
+   TRAKT POSTER
+========================================================= */
+
+.trakt-poster-wrapper {
+    position: relative;
+
+    aspect-ratio: 2 / 3;
+
+    background: #222222;
+
+    overflow: hidden;
+}
+
+.trakt-poster {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.trakt-card:hover .trakt-poster {
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   TRAKT POSTER PLACEHOLDER
+========================================================= */
+
+.trakt-poster-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #242424,
+            #151515
+        );
+
+    color: #666666;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TRAKT RANK
+========================================================= */
+
+.trakt-rank {
+    position: absolute;
+
+    top: 10px;
+    left: 10px;
+
+    padding: 6px 10px;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   TRAKT RATING
+========================================================= */
+
+.trakt-rating {
+    position: absolute;
+
+    right: 10px;
+    bottom: 10px;
+
+    padding: 6px 9px;
+
+    background: rgba(0, 0, 0, 0.82);
+
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================================================
+   TRAKT CARD CONTENT
+========================================================= */
+
+.trakt-card-content {
+    padding: 15px;
+}
+
+.trakt-card-content h4 {
+    margin: 0 0 9px;
+
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.trakt-year {
+    color: #888888;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   TRAKT TYPE / GENRE BADGES
+========================================================= */
+
+.trakt-genres {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-bottom: 9px;
+}
+
+.trakt-genre {
+    display: inline-block;
+
+    padding: 4px 7px;
+
+    background: #293844;
+
+    color: #b9c9d5;
+
+    border-radius: 4px;
+
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TRAKT OVERVIEW
+========================================================= */
+
+.trakt-overview {
+    margin: 10px 0 0;
+
+    color: #b8b8b8;
+
+    font-size: 14px;
+    line-height: 1.45;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TRAKT SOURCE LABEL
+========================================================= */
+
+.trakt-label {
+    display: none !important;
+}
+
+
+/* =========================================================
+   TRAKT LOADING
+========================================================= */
+
+.trakt-loading {
+    padding: 40px 0;
+
+    color: #777777;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   TRAKT ERROR
+========================================================= */
+
+.trakt-error {
+    padding: 30px 0;
+
+    color: #888888;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   TRAKT HORIZONTAL LISTS
+========================= */
+
+.trakt-list-section {
+    margin-top: 20px;
+    margin-bottom: 64px;
+}
+
+.trakt-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.trakt-list-header h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.trakt-list-meta {
+    margin-top: 6px;
+    color: #858585;
+    font-size: 14px;
+}
+
+.trakt-list-source {
+    color: #777;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================
+   HORIZONTAL CAROUSEL
+========================= */
+
+.trakt-carousel {
+    position: relative;
+    width: 100%;
+}
+
+.trakt-cards {
+    display: flex;
+
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 4px 4px 18px 2px;
+
+    scroll-behavior: smooth;
+
+    scroll-snap-type: x proximity;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+}
+
+
+/* Keep cards from shrinking */
+
+.trakt-cards .card {
+    flex: 0 0 190px;
+    width: 190px;
+
+    scroll-snap-align: start;
+}
+
+
+/* Poster sizing */
+
+.trakt-cards .poster-wrapper {
+    aspect-ratio: 2 / 3;
+}
+
+
+/* Don't let long descriptions make cards enormous */
+
+.trakt-cards .overview {
+    display: -webkit-box;
+
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   CAROUSEL SCROLL BUTTONS
+========================= */
+
+.trakt-scroll-button {
+    position: absolute;
+
+    top: 42%;
+
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #3a3a3a;
+
+    border-radius: 50%;
+
+    background: rgba(15, 15, 15, 0.9);
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.4);
+
+    pointer-events: none;
+}
+
+.trakt-carousel:hover .trakt-scroll-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.trakt-scroll-button:hover {
+    background: rgba(40, 40, 40, 0.95);
+
+    transform:
+        translateY(-50%)
+        scale(1.05);
+}
+
+.trakt-scroll-left {
+    left: -18px;
+}
+
+.trakt-scroll-right {
+    right: -18px;
+}
+
+
+/* =========================
+   VIEW MORE
+========================= */
+
+.trakt-view-more {
+    margin-top: 18px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.trakt-view-more button {
+    border: 1px solid #333;
+
+    background: #181818;
+
+    color: #d0d0d0;
+
+    padding: 9px 18px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.trakt-view-more button:hover {
+    background: #242424;
+    border-color: #4a4a4a;
+}
+
+
+/* =========================
+   HIDE EXTRA TRAKT ITEMS
+========================= */
+
+.trakt-cards.collapsed .card:nth-child(n + 11) {
+    display: none;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .trakt-cards {
+        gap: 12px;
+    }
+
+    .trakt-cards .card {
+        flex-basis: 165px;
+        width: 165px;
+    }
+
+    .trakt-scroll-button {
+        display: none;
+    }
+
+    .trakt-cards {
+        scrollbar-width: none;
+    }
+
+    .trakt-cards::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+@media (min-width: 801px) {
+
+    .trakt-cards::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .trakt-cards::-webkit-scrollbar-track {
+        background: #181818;
+        border-radius: 10px;
+    }
+
+    .trakt-cards::-webkit-scrollbar-thumb {
+        background: #3a3a3a;
+        border-radius: 10px;
+    }
+
+    .trakt-cards::-webkit-scrollbar-thumb:hover {
+        background: #505050;
+    }
+}
+
+/* =========================================================
+   Details Page
+   ========================================================= */
+
+.details-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+}
+
+/* Back link */
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+/* Hero */
+
+.details-hero {
+    position: relative;
+    min-height: 560px;
+    margin-bottom: 40px;
+
+    background-color: #111;
+    background-size: cover;
+    background-position: center;
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.details-hero-content {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 32px;
+
+    padding: 50px;
+}
+
+.details-poster {
+    width: 240px;
+    min-width: 240px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.65);
+}
+
+.details-info {
+    max-width: 800px;
+    padding-bottom: 10px;
+}
+
+.details-info h2 {
+    margin: 0 0 12px;
+
+    font-size: 42px;
+    line-height: 1.1;
+}
+
+.year {
+    color: #999;
+    font-weight: normal;
+}
+
+/* Metadata */
+
+.details-meta {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+    color: #ccc;
+    font-size: 15px;
+}
+
+.details-meta span {
+    padding-right: 12px;
+    border-right: 1px solid #444;
+}
+
+.details-meta span:last-child {
+    border-right: none;
+}
+
+/* Genres */
+
+.details-genres {
+    margin-bottom: 20px;
+}
+
+/* Overview */
+
+.details-overview {
+    max-width: 750px;
+
+    margin: 0 0 28px;
+
+    color: #ddd;
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Request button */
+
+.seerr-action {
+    margin-top: 20px;
+}
+
+.request-button {
+    display: inline-block;
+
+    padding: 13px 24px;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #111;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.request-button:hover {
+    background: #ddd;
+    transform: translateY(-1px);
+}
+
+/* Details panel */
+
+.details-content {
+    margin-bottom: 40px;
+}
+
+.details-panel {
+    padding: 28px;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+}
+
+.details-panel h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+
+    font-size: 20px;
+}
+
+/* Information grid */
+
+.details-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+.details-grid > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.detail-label {
+    color: #888;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+}
+
+.details-grid strong {
+    color: #eee;
+    font-size: 15px;
+}
+
+.detail-providers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.detail-provider {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.detail-provider img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+
+/* =========================================================
+   Details Page Responsive
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .details-hero-content {
+        padding: 32px;
+        gap: 24px;
+    }
+
+    .details-poster {
+        width: 180px;
+        min-width: 180px;
+    }
+
+    .details-info h2 {
+        font-size: 32px;
+    }
+
+    .details-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+
+    .details-page {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .details-hero {
+        min-height: auto;
+    }
+
+    .details-hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+    }
+
+    .details-poster {
+        width: 160px;
+        min-width: 160px;
+    }
+
+    .details-info h2 {
+        font-size: 28px;
+    }
+
+    .details-overview {
+        font-size: 15px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* =========================================================
+   RESPONSIVE — LARGE SCREENS
+========================================================= */
+
+@media (min-width: 1600px) {
+
+    .cards,
+    .trakt-cards {
+        grid-template-columns:
+            repeat(
+                7,
+                minmax(0, 1fr)
+            );
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLETS
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .cards,
+    .trakt-cards {
+        grid-template-columns:
+            repeat(
+                5,
+                minmax(0, 1fr)
+            );
+    }
+
+    .section-header,
+    .trakt-section-header,
+    .trakt-list-header {
+        align-items: flex-start;
+    }
+
+    .updated,
+    .trakt-source {
+        white-space: normal;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLETS
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .site-header {
+        padding: 26px 18px;
+    }
+
+    .site-header h1 {
+        font-size: 28px;
+    }
+
+    .site-header p {
+        font-size: 16px;
+    }
+
+    .container {
+        padding:
+            28px
+            18px
+            60px;
+    }
+
+    .filters {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .section-header,
+    .trakt-section-header,
+    .trakt-list-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-header h2,
+    .trakt-section-header h2 {
+        font-size: 24px;
+    }
+
+    .updated,
+    .trakt-source {
+        text-align: left;
+    }
+
+    .cards,
+    .trakt-cards {
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0, 1fr)
+            );
+
+        gap: 16px;
+    }
+
+    .ranking-section,
+    .trakt-section {
+        margin-bottom: 48px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — PHONES
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .cards,
+    .trakt-cards {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 14px;
+    }
+
+    .card-content,
+    .trakt-card-content {
+        padding: 12px;
+    }
+
+    .card-content h3,
+    .trakt-card-content h4 {
+        font-size: 15px;
+    }
+
+    .overview,
+    .trakt-overview {
+        font-size: 13px;
+    }
+
+    .rank,
+    .trakt-rank {
+        top: 8px;
+        left: 8px;
+
+        padding: 5px 8px;
+
+        font-size: 15px;
+    }
+
+    .rating,
+    .trakt-rating {
+        right: 8px;
+        bottom: 8px;
+
+        padding: 5px 8px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   Details Page Enhancements
+========================================================= */
+
+.details-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.trailer-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #292929;
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.trailer-button:hover {
+    background: #383838;
+    border-color: #555;
+    transform: translateY(-1px);
+}
+
+.credit-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.credit-pill {
+    padding: 9px 13px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #1d1d1d;
+    color: #eee;
+    font-size: 14px;
+}
+
+.section-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.section-title-row span {
+    color: #777;
+    font-size: 12px;
+}
+
+.cast-row {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 4px 2px 10px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+}
+
+.cast-card {
+    flex: 0 0 150px;
+    min-width: 150px;
+    overflow: hidden;
+    padding-bottom: 12px;
+    border: 1px solid #2d2d2d;
+    border-radius: 10px;
+    background: #1b1b1b;
+    text-align: center;
+    scroll-snap-align: start;
+}
+
+.cast-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background: #252525;
+}
+
+.cast-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.cast-name {
+    margin: 10px 9px 0;
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.cast-character {
+    margin: 5px 9px 0;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+/* Ratings */
+
+.rating-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+}
+
+.rating-card {
+    min-width: 0;
+    min-height: 105px;
+    padding: 16px;
+    border: 1px solid #2d2d2d;
+    border-radius: 12px;
+    background: #1b1b1b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rating-logo {
+    display: block;
+    width: 115px;
+    height: 32px;
+    max-width: 115px;
+    object-fit: contain;
+    object-position: left center;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 650px) {
+    .rating-logo {
+        width: 82px;
+        height: 26px;
+        max-width: 82px;
+    }
+}
+
+.rating-card-main {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.rating-card-main strong {
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.rating-card-main span {
+    color: #777;
+    font-size: 13px;
+}
+
+.rating-card small {
+    display: block;
+    margin-top: 7px;
+    color: #777;
+    font-size: 11px;
+}
+
+.rating-status {
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.rating-status.fresh {
+    color: #6cc04a;
+}
+
+.rating-status.rotten {
+    color: #e45b5b;
+}
+
+.rating-note,
+.muted-note {
+    margin: 16px 0 0;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Trailer modal */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.trailer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.trailer-modal.open {
+    display: flex !important;
+}
+
+.trailer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(5px);
+}
+
+.trailer-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1100px, 100%);
+    overflow: hidden;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #111;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.trailer-video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.trailer-video-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.trailer-close {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.trailer-close:hover {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+@media (max-width: 650px) {
+    .rating-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .details-actions {
+        width: 100%;
+    }
+
+    .request-button,
+    .trailer-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cast-card {
+        flex-basis: 130px;
+        min-width: 130px;
+    }
+
+    .rating-card {
+        flex: 1 1 130px;
+        min-width: 0;
+    }
+
+    .trailer-modal {
+        padding: 10px;
+    }
+}
+
+/* =========================================================
+   BLUE-GREY THEME
+   ========================================================= */
+
+html {
+    background: #0B1117;
+}
+
+body {
+    background: #0B1117;
+    color: #F5F7FA;
+}
+
+/* Header */
+.site-header,
+.header {
+    background: #101820;
+    border-color: #263644;
+}
+
+.site-header p,
+.header p {
+    color: #B8C4CF;
+}
+
+/* Main cards */
+.card,
+.movie-card {
+    background: #18232E;
+    border-color: #304252;
+}
+
+.card:hover,
+.movie-card:hover {
+    border-color: #42586C;
+}
+
+/* Poster areas */
+.poster-wrapper {
+    background: #15202A;
+}
+
+.poster-placeholder {
+    background: linear-gradient(
+        135deg,
+        #263744,
+        #16212B
+    );
+    color: #8796A5;
+}
+
+/* Card text */
+.card h3,
+.card-content h3 {
+    color: #F5F7FA;
+}
+
+.year {
+    color: #9EACB9;
+}
+
+.overview {
+    color: #AEBBC7;
+}
+
+/* Genres */
+.genre {
+    background: #263744;
+    color: #C2CDD7;
+}
+
+/* Ranking / rating overlays */
+.rank,
+.rating {
+    background: rgba(11, 17, 23, 0.88);
+    color: #FFFFFF;
+}
+
+/* Filters */
+.filters {
+    border-color: #304252;
+}
+
+.filter-label {
+    color: #AAB8C4;
+}
+
+.filter-button,
+.type-button {
+    background: #263744;
+    color: #C5D0D9;
+}
+
+.filter-button:hover,
+.type-button:hover {
+    background: #35495A;
+    color: #FFFFFF;
+}
+
+.filter-button.active,
+.type-button.active {
+    background: #DCE5EC;
+    color: #101820;
+}
+
+/* Sections */
+.section-subtitle,
+.section-meta {
+    color: #9EACB9;
+}
+
+.updated {
+    color: #8796A5;
+}
+
+/* Details page */
+.details-hero {
+    background-color: #101820;
+}
+
+.details-panel {
+    background: #1D2A37;
+    border-color: #304252;
+}
+
+.details-meta {
+    color: #C4CFD8;
+}
+
+.details-meta span {
+    border-color: #405261;
+}
+
+.details-overview {
+    color: #D3DCE4;
+}
+
+.detail-label {
+    color: #91A1AF;
+}
+
+.details-grid strong {
+    color: #F2F6F9;
+}
+
+/* Back link */
+.back-link {
+    color: #B8C4CF;
+}
+
+.back-link:hover {
+    color: #FFFFFF;
+}
+
+/* Request button */
+.request-button {
+    background: #DCE5EC;
+    color: #101820;
+}
+
+.request-button:hover {
+    background: #FFFFFF;
+}
+
+/* Trailer button */
+.trailer-button {
+    background: #263744;
+    border-color: #405261;
+    color: #FFFFFF;
+}
+
+.trailer-button:hover {
+    background: #35495A;
+    border-color: #52687A;
+}
+
+/* Cast */
+.cast-card {
+    background: #18232E;
+    border-color: #304252;
+}
+
+.cast-photo {
+    background: #263744;
+}
+
+.cast-placeholder {
+    color: #91A1AF;
+}
+
+.cast-name {
+    color: #F5F7FA;
+}
+
+.cast-character {
+    color: #A4B2BE;
+}
+
+.credit-pill {
+    background: #263744;
+    border-color: #405261;
+    color: #E1E7EC;
+}
+
+.section-title-row span {
+    color: #8796A5;
+}
+
+/* Ratings */
+.rating-card {
+    background: #18232E;
+    border-color: #304252;
+}
+
+.rating-card-main strong {
+    color: #FFFFFF;
+}
+
+.rating-card-main span,
+.rating-card small {
+    color: #91A1AF;
+}
+
+/* Keep Fresh / Rotten semantic colours */
+.rating-status.fresh {
+    color: #6CC04A;
+}
+
+.rating-status.rotten {
+    color: #E45B5B;
+}
+
+/* Footer */
+.site-footer {
+    border-color: #304252;
+    color: #738391;
+}
+
+/* Trailer modal */
+.trailer-backdrop {
+    background: rgba(5, 10, 15, 0.86);
+}
+
+.trailer-dialog {
+    background: #101820;
+    border-color: #405261;
+}
+
+
+/* =========================================================
+   RESPONSIVE — VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .cards,
+    .trakt-cards {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 10px;
+    }
+
+    .card-content,
+    .trakt-card-content {
+        padding: 10px;
+    }
+
+    .genres,
+    .trakt-genres {
+        gap: 4px;
+    }
+
+    .genre,
+    .trakt-genre {
+        font-size: 11px;
+        padding: 3px 5px;
+    }
+}

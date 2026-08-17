@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Categories - WatchNext</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css?v=4"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="header-top">
+            <div>
+                <h1>WatchNext</h1>
+                <p>Find your next watch and request them.</p>
+            </div>
+        </div>
+
+        <nav class="site-nav">
+
+            <a href="/" class="nav-link">
+                Top 10
+            </a>
+
+            <a href="/categories" class="nav-link active">
+                Categories
+            </a>
+
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- =========================================================
+     SITE NAVIGATION
+========================================================= 
+
+<nav class="site-nav">
+
+    <div class="site-nav-inner">
+
+        <a
+            href="/"
+            class="site-nav-link"
+        >
+            Top 10
+        </a>
+
+        <a
+            href="/categories"
+            class="site-nav-link active"
+        >
+            Categories
+        </a>
+
+    </div>
+
+</nav>
+
+-->
+<main class="container">
+
+
+    <!-- =====================================================
+         CATEGORIES
+    ====================================================== -->
+
+    <section
+        id="categories-section"
+        class="trakt-section"
+    >
+
+        <div class="section-header trakt-section-header">
+
+            <div>
+
+                <h2>
+                    Categories
+                </h2>
+
+                <div
+                    id="trakt-summary"
+                    class="section-subtitle"
+                >
+                    Loading categories...
+                </div>
+
+            </div>
+
+
+            <div class="updated trakt-label">
+                Categories
+            </div>
+
+        </div>
+
+
+        <div
+            id="trakt-lists-container"
+            class="trakt-lists-container"
+        >
+
+            <div class="trakt-loading">
+                Loading categories...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   TRAKT LISTS
+========================================================= */
+
+let traktLists = [];
+
+
+/* =========================================================
+   LOAD TRAKT LISTS
+========================================================= */
+
+async function loadTraktLists() {
+
+    const container =
+        document.getElementById(
+            "trakt-lists-container"
+        );
+
+    const summary =
+        document.getElementById(
+            "trakt-summary"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/trakt/lists",
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const listMetadata =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.lists)
+                        ? data.lists
+                        : []
+                );
+
+
+        if (!listMetadata.length) {
+
+            summary.textContent =
+                "No categories available.";
+
+            container.innerHTML =
+                `
+                    <div class="trakt-empty">
+                        No categories are currently available.
+                    </div>
+                `;
+
+            return;
+
+        }
+
+
+        /*
+         * Load each individual Trakt list.
+         */
+
+        const loadedLists =
+            await Promise.all(
+
+                listMetadata.map(
+                    async metadata => {
+
+                        try {
+
+                            const listResponse =
+                                await fetch(
+                                    `/api/trakt/lists/${encodeURIComponent(
+                                        metadata.slug
+                                    )}`,
+                                    {
+                                        cache: "no-store"
+                                    }
+                                );
+
+
+                            if (!listResponse.ok) {
+
+                                throw new Error(
+                                    "HTTP " +
+                                    listResponse.status
+                                );
+
+                            }
+
+
+                            const listData =
+                                await listResponse.json();
+
+
+                            let items;
+
+
+                            if (
+                                Array.isArray(
+                                    listData
+                                )
+                            ) {
+
+                                items =
+                                    listData;
+
+                            } else {
+
+                                items =
+                                    Array.isArray(
+                                        listData.items
+                                    )
+                                        ? listData.items
+                                        : [];
+
+                            }
+
+
+                            return {
+
+                                ...metadata,
+
+                                items
+
+                            };
+
+                        } catch (error) {
+
+                            console.error(
+                                "Failed to load Trakt list:",
+                                metadata.slug,
+                                error
+                            );
+
+
+                            return {
+
+                                ...metadata,
+
+                                items: []
+
+                            };
+
+                        }
+
+                    }
+                )
+
+            );
+    summary.textContent =
+        `${listMetadata.length} categor${
+            listMetadata.length === 1
+                ? "y"
+                : "ies"
+        }`;
+
+        traktLists =
+            loadedLists;
+
+
+        renderTraktLists();
+
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load Trakt lists:",
+            error
+        );
+
+
+        summary.textContent =
+            "Unable to load categories";
+
+
+        container.innerHTML =
+            `
+                <div class="trakt-empty">
+                    Unable to load categories.
+                </div>
+            `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   ITEM HELPERS
+========================================================= */
+
+function getTraktItemTitle(item) {
+
+    return (
+        item.tmdb_title
+        || item.title
+        || "Unknown Title"
+    );
+
+}
+
+
+function getTraktItemYear(item) {
+
+    if (item.tmdb_date) {
+
+        return item.tmdb_date.substring(
+            0,
+            4
+        );
+
+    }
+
+
+    if (item.year) {
+
+        return item.year;
+
+    }
+
+
+    return "";
+
+}
+
+
+function getTraktItemType(item) {
+
+    const type =
+        (
+            item.tmdb_type
+            || item.type
+            || ""
+        ).toString().toLowerCase();
+
+
+    if (
+        type === "tv"
+        || type === "show"
+        || type === "series"
+    ) {
+
+        return "TV Show";
+
+    }
+
+
+    return "Movie";
+
+}
+
+
+function getTraktItemRating(item) {
+
+    const rating =
+        Number(
+            item.tmdb_vote_average
+        );
+
+
+    if (
+        Number.isFinite(rating)
+        && rating > 0
+    ) {
+
+        return rating.toFixed(1);
+
+    }
+
+
+    return "";
+
+}
+
+
+function getTraktItemOverview(item) {
+
+    return (
+        item.tmdb_overview
+        || ""
+    );
+
+}
+
+
+function getTraktPoster(item) {
+
+    if (
+        item.tmdb_poster_path
+    ) {
+
+        if (
+            item.tmdb_poster_path.startsWith(
+                "http://"
+            )
+            ||
+            item.tmdb_poster_path.startsWith(
+                "https://"
+            )
+        ) {
+
+            return item.tmdb_poster_path;
+
+        }
+
+
+        return (
+            "https://image.tmdb.org/t/p/w500"
+            + item.tmdb_poster_path
+        );
+
+    }
+
+
+    return (
+        item.trakt_image_url
+        || ""
+    );
+
+}
+
+
+function getTraktTmdbId(item) {
+
+    return (
+        item.tmdb_id
+        || null
+    );
+
+}
+
+
+function getTraktMediaType(item) {
+
+    const type =
+        (
+            item.tmdb_type
+            || item.type
+            || ""
+        ).toString().toLowerCase();
+
+
+    if (
+        type === "tv"
+        || type === "show"
+        || type === "series"
+    ) {
+
+        return "tv";
+
+    }
+
+
+    return "movie";
+
+}
+
+
+
+/* =========================================================
+   CREATE TRAKT CARD
+========================================================= */
+
+function createTraktCard(
+    item,
+    index
+) {
+
+    const title =
+        getTraktItemTitle(item);
+
+
+    const year =
+        getTraktItemYear(item);
+
+
+    const type =
+        getTraktItemType(item);
+
+
+    const rating =
+        getTraktItemRating(item);
+
+
+    const overview =
+        getTraktItemOverview(item);
+
+
+    const poster =
+        getTraktPoster(item);
+
+
+    const tmdbId =
+        getTraktTmdbId(item);
+
+
+    const mediaType =
+        getTraktMediaType(item);
+
+
+    const card =
+        document.createElement(
+            tmdbId
+                ? "a"
+                : "div"
+        );
+
+
+    card.className =
+        "card trakt-card";
+
+
+    if (tmdbId) {
+
+        card.href =
+            `/title/${mediaType}/${tmdbId}?from=categories`;
+
+    }
+
+
+    const posterWrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    posterWrapper.className =
+        "poster-wrapper";
+
+
+    if (poster) {
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+
+        image.className =
+            "poster";
+
+
+        image.src =
+            poster;
+
+
+        image.alt =
+            title;
+
+
+        image.loading =
+            "lazy";
+
+
+        image.onerror =
+            function () {
+
+                this.style.display =
+                    "none";
+
+            };
+
+
+        posterWrapper.appendChild(
+            image
+        );
+
+    } else {
+
+        const placeholder =
+            document.createElement(
+                "div"
+            );
+
+
+        placeholder.className =
+            "poster-placeholder";
+
+
+        placeholder.textContent =
+            "No Artwork";
+
+
+        posterWrapper.appendChild(
+            placeholder
+        );
+
+    }
+
+
+    const rank =
+        document.createElement(
+            "div"
+        );
+
+
+    rank.className =
+        "rank";
+
+
+    rank.textContent =
+        "#" + (index + 1);
+
+
+    posterWrapper.appendChild(
+        rank
+    );
+
+
+    if (rating) {
+
+        const ratingElement =
+            document.createElement(
+                "div"
+            );
+
+
+        ratingElement.className =
+            "rating";
+
+
+        ratingElement.textContent =
+            "★ " + rating;
+
+
+        posterWrapper.appendChild(
+            ratingElement
+        );
+
+    }
+
+
+    card.appendChild(
+        posterWrapper
+    );
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+
+    content.className =
+        "card-content";
+
+
+    const heading =
+        document.createElement(
+            "h3"
+        );
+
+
+    heading.textContent =
+        title;
+
+
+    if (year) {
+
+        const yearElement =
+            document.createElement(
+                "span"
+            );
+
+
+        yearElement.className =
+            "year";
+
+
+        yearElement.textContent =
+            ` (${year})`;
+
+
+        heading.appendChild(
+            yearElement
+        );
+
+    }
+
+
+    content.appendChild(
+        heading
+    );
+
+
+    const typeContainer =
+        document.createElement(
+            "div"
+        );
+
+
+    typeContainer.className =
+        "genres";
+
+
+    const typeBadge =
+        document.createElement(
+            "span"
+        );
+
+
+    typeBadge.className =
+        "genre";
+
+
+    typeBadge.textContent =
+        type;
+
+
+    typeContainer.appendChild(
+        typeBadge
+    );
+
+
+    content.appendChild(
+        typeContainer
+    );
+
+
+    if (overview) {
+
+        const overviewElement =
+            document.createElement(
+                "p"
+            );
+
+
+        overviewElement.className =
+            "overview";
+
+
+        overviewElement.textContent =
+            overview;
+
+
+        content.appendChild(
+            overviewElement
+        );
+
+    }
+
+
+    const tmdbLabel =
+        document.createElement(
+            "div"
+        );
+
+
+    tmdbLabel.className =
+        "tmdb tmdb-label";
+
+
+    if (tmdbId) {
+
+        tmdbLabel.textContent =
+            `TMDB ${tmdbId}`;
+
+    } else {
+
+        tmdbLabel.textContent =
+            "TMDB match pending";
+
+    }
+
+
+    content.appendChild(
+        tmdbLabel
+    );
+
+
+    card.appendChild(
+        content
+    );
+
+
+    return card;
+
+}
+
+
+
+/* =========================================================
+   RENDER SINGLE LIST
+========================================================= */
+
+function renderTraktList(
+    list,
+    listIndex
+) {
+
+    const wrapper =
+        document.createElement(
+            "section"
+        );
+
+
+    wrapper.className =
+        "trakt-list";
+
+
+    const header =
+        document.createElement(
+            "div"
+        );
+
+
+    header.className =
+        "trakt-list-header";
+
+
+    const titleBlock =
+        document.createElement(
+            "div"
+        );
+
+
+    const title =
+        document.createElement(
+            "h3"
+        );
+
+
+    title.textContent =
+        list.name
+        || "Category";
+
+
+    titleBlock.appendChild(
+        title
+    );
+
+
+    const total =
+        list.count
+        || list.items.length;
+
+
+    const movies =
+        list.movies;
+
+
+    const shows =
+        list.shows;
+
+
+    const subtitle =
+        document.createElement(
+            "div"
+        );
+
+
+    subtitle.className =
+        "trakt-list-subtitle";
+
+
+    const parts = [];
+
+
+    parts.push(
+        `${total} title${total === 1 ? "" : "s"}`
+    );
+
+
+    if (
+        Number.isFinite(
+            Number(movies)
+        )
+    ) {
+
+        parts.push(
+            `${movies} movies`
+        );
+
+    }
+
+
+    if (
+        Number.isFinite(
+            Number(shows)
+        )
+    ) {
+
+        parts.push(
+            `${shows} TV shows`
+        );
+
+    }
+
+
+    subtitle.textContent =
+        parts.join(" · ");
+
+
+    titleBlock.appendChild(
+        subtitle
+    );
+
+
+    header.appendChild(
+        titleBlock
+    );
+
+
+    wrapper.appendChild(
+        header
+    );
+
+
+    const cards =
+        document.createElement(
+            "div"
+        );
+
+
+    cards.className =
+        "cards trakt-cards";
+
+
+    list.items.forEach(
+        (item, index) => {
+
+            cards.appendChild(
+                createTraktCard(
+                    item,
+                    index
+                )
+            );
+
+        }
+    );
+
+
+    wrapper.appendChild(
+        cards
+    );
+
+
+    return wrapper;
+
+}
+
+
+
+/* =========================================================
+   RENDER ALL CATEGORIES
+========================================================= */
+
+function renderTraktLists() {
+
+    const container =
+        document.getElementById(
+            "trakt-lists-container"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    if (
+        !traktLists.length
+    ) {
+
+        container.innerHTML =
+            `
+                <div class="trakt-empty">
+                    No categories are currently available.
+                </div>
+            `;
+
+        return;
+
+    }
+
+
+    traktLists.forEach(
+        (list, index) => {
+
+            container.appendChild(
+                renderTraktList(
+                    list,
+                    index
+                )
+            );
+
+        }
+    );
+
+}
+
+
+loadTraktLists();
+
+</script>
+
+
+</body>
+
+</html>

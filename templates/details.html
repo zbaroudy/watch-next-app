@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item._title }} - WhatNext</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        {% if from_page == "categories" %}
+            <a href="/categories" class="back-link">← Back to Categories</a>
+            {% else %}
+            <a href="{{ back_url }}" class="back-link">{{ back_text }}</a>
+        {% endif %}
+        <h1>{{ item._title }}</h1>
+        {% if item._year %}
+        <p>{{ item._year }}</p>
+        {% endif %}
+    </div>
+</header>
+
+<main class="details-page">
+    <section
+        class="details-hero"
+        {% if item._backdrop_url %}
+        style="background-image:
+            linear-gradient(
+                to bottom,
+                rgba(10, 10, 10, 0.15),
+                rgba(10, 10, 10, 0.95)
+            ),
+            url('{{ item._backdrop_url }}');"
+        {% endif %}
+    >
+        <div class="details-hero-content">
+            {% if item._poster_url %}
+            <img
+                src="{{ item._poster_url }}"
+                alt="{{ item._title }}"
+                class="details-poster"
+            >
+            {% endif %}
+
+            <div class="details-info">
+                <h2>
+                    {{ item._title }}
+                    {% if item._year %}
+                    <span class="year">({{ item._year }})</span>
+                    {% endif %}
+                </h2>
+
+                <div class="details-meta">
+                    <span>
+                        {% if item._resolved_media_type == "movie" %}
+                            Movie
+                        {% else %}
+                            TV Series
+                        {% endif %}
+                    </span>
+
+                    {% if item._rating %}
+                    <span>★ {{ "%.1f"|format(item._rating) }}</span>
+                    {% endif %}
+
+                    <span>
+                        {% if item.rank %}
+                            #{{ item.rank }} on {{ list.provider_display }}
+                        {% else %}
+                            {{ item._service_provider or list.provider_display }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                {% if item._genres %}
+                <div class="genres details-genres">
+                    {% for genre in item._genres %}
+                    <span class="genre">{{ genre }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if item._overview %}
+                <p class="details-overview">{{ item._overview }}</p>
+                {% endif %}
+
+                <div class="seerr-action">
+                    <a
+                        href="https://requests.ziadbaroudy.com/{{ 'tv' if item._resolved_media_type == 'tv' else 'movie' }}/{{ item.tmdb_id }}"
+                        class="request-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Request in Seerr
+                    </a>
+                    {% if item._trailer %}
+                    <button
+                        type="button"
+                        class="trailer-button"
+                        id="open-trailer"
+                    >
+                        ▶ Watch Trailer
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-content">
+        <div class="details-panel">
+            <h3>Details</h3>
+
+            <div class="details-grid">
+                <div>
+                    <span class="detail-label">
+                        {{ "Release Date" if item._resolved_media_type == "movie" else "First Air Date" }}
+                    </span>
+                    <strong>{{ item._release_date or "—" }}</strong>
+                </div>
+
+                {% if item._resolved_media_type == "movie" %}
+                <div>
+                    <span class="detail-label">Runtime</span>
+                    <strong>{{ item._runtime or "—" }}</strong>
+                </div>
+                {% else %}
+                <div>
+                    <span class="detail-label">Seasons</span>
+                    <strong>{{ item._seasons or "—" }}</strong>
+                </div>
+
+                <div>
+                    <span class="detail-label">Episodes</span>
+                    <strong>{{ item._episodes or "—" }}</strong>
+                </div>
+
+                {% if item._runtime %}
+                <div>
+                    <span class="detail-label">Episode Runtime</span>
+                    <strong>{{ item._runtime }}</strong>
+                </div>
+                {% endif %}
+                {% endif %}
+
+                {% if item._status %}
+                <div>
+                    <span class="detail-label">Status</span>
+                    <strong>{{ item._status }}</strong>
+                </div>
+                {% endif %}
+
+                {% if item._resolved_media_type == "tv" and item._last_air_date %}
+                <div>
+                    <span class="detail-label">Last Air Date</span>
+                    <strong>{{ item._last_air_date }}</strong>
+                </div>
+                {% endif %}
+
+                <div>
+                    <span class="detail-label">Canadian Ranking</span>
+                    <strong>{% if item.rank %}
+                                #{{ item.rank }}
+                            {% else %}
+                                Not currently trending
+                            {% endif %}
+                    </strong>
+                </div>
+
+                <div>
+                    <span class="detail-label">Service</span>
+
+                    {% if item._watch_providers %}
+                    <div class="detail-providers">
+                        {% for provider in item._watch_providers %}
+                        <span class="detail-provider">
+                            {% if provider.logo_url %}
+                            <img
+                                src="{{ provider.logo_url }}"
+                                alt="{{ provider.name }}"
+                            >
+                            {% endif %}
+                            <strong>{{ provider.name }}</strong>
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <strong>{{ list.provider_display }}</strong>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if item._directors or item._creators %}
+    <section class="details-content">
+        <div class="details-panel">
+            <h3>{{ "Director" if item._resolved_media_type == "movie" else "Created By" }}</h3>
+            <div class="credit-list">
+                {% for name in item._directors if item._directors %}
+                <span class="credit-pill">{{ name }}</span>
+                {% endfor %}
+                {% for name in item._creators if item._creators %}
+                <span class="credit-pill">{{ name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if item._cast %}
+    <section class="details-content">
+        <div class="details-panel cast-panel">
+            <div class="section-title-row">
+                <h3>Cast</h3>
+                <span>{{ item._cast|length }} shown</span>
+            </div>
+
+            <div class="cast-row">
+                {% for person in item._cast %}
+                <div class="cast-card">
+                    {% if person.profile_url %}
+                    <img
+                        src="{{ person.profile_url }}"
+                        alt="{{ person.name }}"
+                        class="cast-photo"
+                        loading="lazy"
+                    >
+                    {% else %}
+                    <div class="cast-photo cast-placeholder">
+                        {{ person.name[:1] }}
+                    </div>
+                    {% endif %}
+
+                    <div class="cast-name">{{ person.name }}</div>
+                    {% if person.character %}
+                    <div class="cast-character">{{ person.character }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="details-content">
+        <div class="details-panel">
+            <h3>Ratings</h3>
+
+            <div class="rating-cards">
+
+                {% if item._vote_average %}
+                <div class="rating-card">
+                    <img
+                        src="/static/images/ratings/tmdb.svg"
+                        alt="TMDB"
+                        class="rating-logo"
+                    >
+                    <div class="rating-card-main">
+                        <strong>{{ "%.1f"|format(item._vote_average) }}</strong>
+                        <span>/10</span>
+                    </div>
+                    {% if item._rating_count %}
+                    <small>{{ "{:,}".format(item._rating_count) }} votes</small>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if (item.get("_omdb_ratings") or {}).get("IMDb") %}
+                <div class="rating-card">
+                    <img
+                        src="/static/images/ratings/imdb.svg"
+                        alt="IMDb"
+                        class="rating-logo"
+                    >
+                    <div class="rating-card-main">
+                        <strong>{{ item._omdb_ratings["IMDb"] }}</strong>
+                        <span>/10</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if (item.get("_omdb_ratings") or {}).get("Rotten Tomatoes") %}
+                <div class="rating-card">
+                    <img
+                        src="/static/images/ratings/rottentomatoes.svg"
+                        alt="Rotten Tomatoes"
+                        class="rating-logo"
+                    >
+                    <div class="rating-card-main">
+                        <strong>{{ item._omdb_ratings["Rotten Tomatoes"] }}</strong>
+                    </div>
+
+                    {% set rt_value = item._omdb_ratings["Rotten Tomatoes"]|string %}
+                    {% if "%" in rt_value %}
+                        {% set rt_number = rt_value.replace("%", "")|int %}
+                        {% if rt_number >= 60 %}
+                        <div class="rating-status fresh">Fresh</div>
+                        {% else %}
+                        <div class="rating-status rotten">Rotten</div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if (item.get("_omdb_ratings") or {}).get("Metacritic") %}
+                <div class="rating-card">
+                    <img
+                        src="/static/images/ratings/metacritic.svg"
+                        alt="Metacritic"
+                        class="rating-logo"
+                    >
+                    <div class="rating-card-main">
+                        <strong>{{ item._omdb_ratings["Metacritic"] }}</strong>
+                        <span>/100</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not item._vote_average and not item._omdb_ratings %}
+                <p class="muted-note">No rating information is available for this title.</p>
+                {% endif %}
+
+            </div> 
+        </div>
+    </section>
+
+</main>
+
+{% if item._trailer %}
+<div class="trailer-modal" id="trailer-modal" aria-hidden="true">
+    <div class="trailer-backdrop" id="close-trailer"></div>
+
+    <div class="trailer-dialog" role="dialog" aria-modal="true" aria-label="Watch trailer">
+        <button
+            type="button"
+            class="trailer-close"
+            id="close-trailer-button"
+            aria-label="Close trailer"
+        >×</button>
+
+        <div class="trailer-video-wrapper">
+            <iframe
+                id="trailer-frame"
+                title="{{ item._trailer.name }}"
+                src=""
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+const trailerModal = document.getElementById("trailer-modal");
+const trailerFrame = document.getElementById("trailer-frame");
+const openTrailer = document.getElementById("open-trailer");
+const closeTrailer = document.getElementById("close-trailer");
+const closeTrailerButton = document.getElementById("close-trailer-button");
+const trailerKey = {{ item._trailer.key|tojson }};
+
+function showTrailer() {
+    trailerFrame.src =
+        "https://www.youtube-nocookie.com/embed/" +
+        trailerKey +
+        "?autoplay=1&rel=0";
+
+    trailerModal.classList.add("open");
+    trailerModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+}
+
+function hideTrailer() {
+    trailerModal.classList.remove("open");
+    trailerModal.setAttribute("aria-hidden", "true");
+    trailerFrame.src = "";
+    document.body.classList.remove("modal-open");
+}
+
+if (openTrailer) {
+    openTrailer.addEventListener("click", showTrailer);
+}
+
+if (closeTrailer) {
+    closeTrailer.addEventListener("click", hideTrailer);
+}
+
+if (closeTrailerButton) {
+    closeTrailerButton.addEventListener("click", hideTrailer);
+}
+
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        trailerModal &&
+        trailerModal.classList.contains("open")
+    ) {
+        hideTrailer();
+    }
+});
+</script>
+{% endif %}
+
+</body>
+</html>
