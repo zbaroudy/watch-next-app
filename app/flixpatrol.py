@@ -3,9 +3,9 @@
 import json
 import os
 import re
+import requests
 from html import unescape
 from html.parser import HTMLParser
-from urllib.request import Request, urlopen
 
 
 class FlixPatrolParser(HTMLParser):
@@ -110,26 +110,27 @@ def fetch_with_flaresolverr(url, flaresolverr_url=None):
     payload = {
         "cmd": "request.get",
         "url": url,
-        "maxTimeout": 60000,
+        "maxTimeout": 120000,
     }
 
-    request = Request(
+    response = requests.post(
         flaresolverr_url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
+        json=payload,
+        timeout=150,
     )
 
-    with urlopen(request, timeout=90) as response:
-        result = json.loads(response.read().decode("utf-8"))
+    response.raise_for_status()
+
+    result = response.json()
 
     if result.get("status") != "ok":
         raise RuntimeError(
             "FlareSolverr returned: "
-            + str(result.get("status"))
+            + str(result.get("message") or result.get("status"))
         )
 
     html = result.get("solution", {}).get("response", "")
+
     if not html:
         raise RuntimeError("FlareSolverr returned no HTML")
 
