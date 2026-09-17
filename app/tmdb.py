@@ -124,6 +124,17 @@ class TMDBClient:
 
                 normalized = self._normalize(result_title)
 
+                release_date = (
+                    result.get("release_date")
+                    or result.get("first_air_date")
+                    or ""
+                )
+
+                result_year = None
+                year_match = re.match(r"^(\d{4})", release_date)
+                if year_match:
+                    result_year = int(year_match.group(1))
+
                 if normalized == target:
                     exact_bonus = 100
                 elif target and (
@@ -133,11 +144,22 @@ class TMDBClient:
                 else:
                     exact_bonus = 0
 
+                # Strongly prefer the year extracted from the
+                # FlixPatrol URL when one is available.
+                year_bonus = 0
+
+                if year:
+                    if result_year == year:
+                        year_bonus = 100
+                    elif result_year is not None:
+                        year_bonus = -100
+
                 popularity = float(result.get("popularity") or 0)
                 vote_count = float(result.get("vote_count") or 0)
 
                 score = (
                     exact_bonus
+                    + year_bonus
                     + min(popularity, 100) * 0.10
                     + min(vote_count, 5000) / 5000 * 5
                 )
